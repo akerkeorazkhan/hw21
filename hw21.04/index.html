@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Health Tracker</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 40px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+        }
+        input {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: 90%;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: cadetblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .result-text {
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Health Table</h1>
+        
+        <p>Enter Height (cm):</p>
+        <input type="number" class="height-input" placeholder="e.g. 175">
+        
+        <p>Enter Weight (kg):</p>
+        <input type="number" class="weight-input" placeholder="e.g. 70">
+        
+        <button class="calc-btn">Calculate Recommendations</button>
+        
+        <p class="bmi-result"></p>
+        <p class="advice-text"></p>
+    </div>
+
+    <script>
+        
+        const heightInp = document.querySelector('.height-input');
+        const weightInp = document.querySelector('.weight-input');
+        const btn = document.querySelector('.calc-btn');
+        const bmiP = document.querySelector('.bmi-result');
+        const adviceP = document.querySelector('.advice-text');
+
+        btn.addEventListener('click', function() {
+            
+            if (heightInp.value.trim() === '' || weightInp.value.trim() === '') {
+                alert('Please fill in both fields!');
+                return; 
+            }
+
+            
+            const h = Number(heightInp.value) / 100; 
+            const w = Number(weightInp.value);
+            
+            
+            const bmi = (w / (h * h)).toFixed(1);
+
+            
+            bmiP.innerText = 'Your BMI: ' + bmi;
+
+            
+            if (bmi < 18.5) {
+                adviceP.innerText = 'Recommendation: Focus on protein-rich food and muscle-building exercises.';
+                adviceP.style.color = 'blue';
+            } else if (bmi >= 18.5 && bmi <= 25) {
+                adviceP.innerText = 'Recommendation: You are in great shape! Keep up the balanced diet.';
+                adviceP.style.color = 'green';
+            } else {
+                adviceP.innerText = 'Recommendation: Try adding more cardio (walking/running) and monitor calories.';
+                adviceP.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
